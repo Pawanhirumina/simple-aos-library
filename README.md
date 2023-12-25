@@ -1,5 +1,11 @@
 # Simple-AOS-animation
 
+## First clone this repo
+
+```
+https://github.com/Pawanhirumina/AOS.git
+```
+
 ## How to use : 
 
 * Import this `AOS` file into your project.
