@@ -1,13 +1,32 @@
-var aos_container = document.querySelectorAll('.reveal');
+document.addEventListener('DOMContentLoaded', function () {
+    const aosItems = document.querySelectorAll('.aos-item');
 
-for (let i = 0; i < aos_container.length; i++) {
-    window.addEventListener('scroll', (e) => {
-        var positionY = aos_container[i].getBoundingClientRect().top - (window.innerHeight / 2) * 2; 
-        aos_container[i].style.position = 'relative';
-        if (positionY <= 0) {
-            aos_container[i].classList.add('active');
-        } else {
-            aos_container[i].classList.remove('active');
-        }
-    })
-}
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+        );
+    }
+
+    function handleScroll() {
+        aosItems.forEach(item => {
+            const aosType = item.getAttribute('data-aos');
+            const hasAnimationClass = item.classList.contains(`aos-${aosType}`);
+
+            if (isElementInViewport(item) && !hasAnimationClass) {
+                // Add the animation class
+                item.classList.add(`aos-${aosType}`);
+            } else if (!isElementInViewport(item) && hasAnimationClass) {
+                // Remove the animation class if the element is no longer in view
+                item.classList.remove(`aos-${aosType}`);
+            }
+        });
+    }
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+
+    // Initial check on page load
+    handleScroll();
+});

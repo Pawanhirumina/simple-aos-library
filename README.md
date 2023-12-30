@@ -1,50 +1,94 @@
-# Simple-AOS-animation
 
-## First clone this repo
+# Simple AOS Library
+A lightweight JavaScript library for adding scroll-triggered animations to your web projects. Easily integrate animated elements that come into view during scrolling.
 
-```
-https://github.com/Pawanhirumina/AOS.git
-```
+## Getting Started
+Follow these steps to use the Simple AOS Library in your projects:
 
-## How to use : 
+### Step 1: Clone the Repository
 
-* Import this `AOS` file into your project.
-* Connect the `js` file and `css` file to the main html file.
-
-### Js file : 
-```html 
-<script src="AOS\aos.js"></script>
+- Clone this repository to your local machine:
+```bash
+git clone https://github.com/Pawanhirumina/simple-aos-library.git
 ```
 
-### Css file :
-```html 
-<link rel="stylesheet" href="AOS\animation.css">
-```
+### Step 2: Include Simple AOS Library Files
+- Copy the aos.js and aos.css files from the cloned repository to your project directory.
 
-## How To trigger an element to animate on scroll?
+### Step 3: Link Simple AOS Library Files in Your HTML
+- Include the Simple AOS Library files in the <head> section of your HTML file:
 
 ```html
-<h1 class="reveal">Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="aos.css">
+    <script src="aos.js"></script>
+    <title>Your Project with Simple AOS</title>
+</head>
+<body>
+
+<!-- Your content here -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const aosItems = document.querySelectorAll('.aos-item');
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+            );
+        }
+
+        function handleScroll() {
+            aosItems.forEach(item => {
+                const aosType = item.getAttribute('data-aos');
+                const hasAnimationClass = item.classList.contains(`aos-${aosType}`);
+
+                if (isElementInViewport(item) && !hasAnimationClass) {
+                    // Add the animation class
+                    item.classList.add(`aos-${aosType}`);
+                } else if (!isElementInViewport(item) && hasAnimationClass) {
+                    // Remove the animation class if the element is no longer in view
+                    item.classList.remove(`aos-${aosType}`);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', handleScroll);
+
+        // Initial check on page load
+        handleScroll();
+    });
+</script>
+
+</body>
+</html>
 ```
 
-## Then add animations to that element 
+### Step 4: Add Simple AOS Classes to Elements
+Now, you can add the data-aos attribute to the HTML elements you want to animate:
 
-```html 
-<!--Fade-Bottom-Animation-->
-<h1 class="reveal fade-bottom">Hello World</h1>
+```html
+<div class="aos-item" data-aos="fade-up">
+    <h1>Welcome to Your Project</h1>
+</div>
 
-<!--Fade-Left-Animation-->
-<h1 class="reveal fade-left">Hello World</h1>
+<div class="aos-item" data-aos="fade-left">
+    <p>This is a simple example of using Simple AOS.</p>
+</div>
 
-<!--Fade-Right-Animation-->
-<h1 class="reveal fade-right">Hello World</h1>
-
-<!--Fade-Top-Animation-->
-<h1 class="reveal fade-top">Hello World</h1>
-
-<!--Scale-Up-Animation-->
-<h1 class="reveal scale-up">Hello World</h1>
+<div class="aos-item" data-aos="fade-right">
+    <p>Scroll down to see animations in action.</p>
+</div>
 ```
 
-> Tip : Don't add any animation to the first page of your web page. The reson is it won't trigger on the first page. You have to move a little bit to see the animation.
+### Step 5: Customize and Run Your Project
+Customize your animations by adjusting settings in the aos.init() function in the included JavaScript script. Open your HTML file in a web browser, and scroll down to see the animations in action.
 
+That's it! You have successfully integrated the Simple AOS Library into your project. Happy scrolling and animating! 🚀
