@@ -13,7 +13,7 @@ git clone https://github.com/Pawanhirumina/simple-aos-library.git
 ```
 
 ### Step 2: Include Simple AOS Library Files
-- Copy the aos.js and aos.css files from the cloned repository to your project directory.
+- Copy the `aos.js` and `aos.css` files from the cloned repository to your project directory.
 
 ### Step 3: Link Simple AOS Library Files in Your HTML
 - Include the Simple AOS Library files in the <head> section of your HTML file:
